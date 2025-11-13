@@ -1,0 +1,3 @@
+# Configure the input and output paths for tailwindcss-rails.
+source: app/assets/tailwind/application.css
+destination: app/assets/builds/tailwind.css

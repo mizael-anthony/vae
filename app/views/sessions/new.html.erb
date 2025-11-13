@@ -1,0 +1,33 @@
+<section class="min-h-[60vh] flex items-center justify-center">
+  <div class="card bg-base-100 shadow-2xl w-full max-w-md border border-base-200">
+    <div class="card-body space-y-6">
+      <div class="space-y-2 text-center">
+        <h1 class="text-3xl font-display">Welcome back</h1>
+        <p class="text-base text-base-content/70">Sign in to manage your ads and follow new leads.</p>
+      </div>
+
+      <%= form_with scope: :session, url: session_path, class: "space-y-5" do |form| %>
+        <div class="form-control">
+          <label class="label" for="session_email">
+            <span class="label-text font-semibold">Email</span>
+          </label>
+          <%= form.email_field :email, autofocus: true, required: true, class: "input input-bordered w-full" %>
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="session_password">
+            <span class="label-text font-semibold">Password</span>
+          </label>
+          <%= form.password_field :password, required: true, class: "input input-bordered w-full" %>
+        </div>
+
+        <%= form.submit "Log in", class: "btn btn-primary w-full" %>
+      <% end %>
+
+      <p class="text-center text-sm text-base-content/70">
+        Need an account?
+        <%= link_to "Sign up", new_users_registration_path, class: "link link-hover text-primary" %>
+      </p>
+    </div>
+  </div>
+</section>

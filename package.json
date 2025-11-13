@@ -1,0 +1,7 @@
+{
+  "name": "vae",
+  "private": true,
+  "devDependencies": {
+    "daisyui": "^4.12.10"
+  }
+}

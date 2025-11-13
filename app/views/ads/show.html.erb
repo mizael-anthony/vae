@@ -1,0 +1,76 @@
+<% content_for :title, @ad.title %>
+
+<section class="hero bg-base-100 shadow-xl rounded-3xl border border-base-200">
+  <div class="hero-content flex-col gap-10 lg:flex-row-reverse w-full">
+    <div class="card bg-base-200 dark:bg-base-300 shadow-xl w-full max-w-sm">
+      <div class="card-body">
+        <h2 class="card-title">Price</h2>
+        <p class="text-4xl font-display text-primary"><%= number_to_currency(@ad.price) %></p>
+        <p class="text-sm text-base-content/70">Posted <%= time_ago_in_words(@ad.created_at) %> ago</p>
+        <div class="divider my-4">Owner</div>
+        <div class="flex items-center gap-3">
+          <div class="avatar">
+            <div class="w-14 rounded-full bg-brand-500 text-white flex items-center justify-center text-lg font-semibold">
+              <%= @ad.user.email.first(2).upcase %>
+            </div>
+          </div>
+          <div>
+            <p class="font-semibold"><%= @ad.user.email %></p>
+            <p class="text-xs text-base-content/70">Trusted seller</p>
+          </div>
+        </div>
+        <div class="card-actions mt-6">
+          <%= mail_to @ad.user.email, "Contact owner", class: "btn btn-primary btn-block" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 space-y-5">
+      <span class="badge badge-outline">Ad #<%= @ad.id %></span>
+      <h1 class="text-4xl md:text-5xl font-display leading-tight"><%= @ad.title %></h1>
+      <p class="text-lg text-base-content/80"><%= simple_format(@ad.description.presence || "No description provided yet.") %></p>
+      <div class="flex flex-wrap gap-3">
+        <%= link_to "Back to all ads", ads_path, class: "btn btn-ghost" %>
+        <% if logged_in? && @ad.user == current_user %>
+          <%= link_to "Edit", edit_ad_path(@ad), class: "btn btn-outline" %>
+          <%= button_to "Delete", @ad, method: :delete,
+                data: { turbo_confirm: "Delete this ad?" },
+                class: "btn btn-error",
+                form: { class: "inline" } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-10 grid gap-6 md:grid-cols-2">
+  <div class="card-surface p-6 space-y-3">
+    <h2 class="text-2xl font-semibold">Details</h2>
+    <dl class="space-y-2 text-sm">
+      <div class="flex justify-between border-b border-base-200 pb-2">
+        <dt class="text-base-content/70">Created</dt>
+        <dd><%= @ad.created_at.strftime("%b %d, %Y") %></dd>
+      </div>
+      <div class="flex justify-between border-b border-base-200 pb-2">
+        <dt class="text-base-content/70">Last updated</dt>
+        <dd><%= @ad.updated_at.strftime("%b %d, %Y") %></dd>
+      </div>
+      <div class="flex justify-between">
+        <dt class="text-base-content/70">Owner</dt>
+        <dd><%= @ad.user.email %></dd>
+      </div>
+    </dl>
+  </div>
+  <div class="card-surface p-6 space-y-4">
+    <h2 class="text-2xl font-semibold">Need something else?</h2>
+    <p class="text-base-content/80">Browse the marketplace for more listings or publish your own offer in seconds.</p>
+    <div class="flex flex-wrap gap-3">
+      <%= link_to "Explore ads", ads_path, class: "btn btn-ghost" %>
+      <% if logged_in? %>
+        <%= link_to "Create another ad", new_ad_path, class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to "Join now", new_users_registration_path, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</section>

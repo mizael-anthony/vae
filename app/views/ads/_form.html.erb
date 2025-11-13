@@ -1,0 +1,41 @@
+<%= form_with model: ad, class: "space-y-6" do |form| %>
+  <% if ad.errors.any? %>
+    <div class="alert alert-error shadow-lg">
+      <div>
+        <span class="font-semibold"><%= pluralize(ad.errors.count, "error") %> prevented this ad from being saved:</span>
+        <ul class="list-disc list-inside text-sm">
+          <% ad.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-control">
+    <label class="label" for="ad_title">
+      <span class="label-text font-semibold">Title</span>
+    </label>
+    <%= form.text_field :title, required: true, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control">
+    <label class="label" for="ad_description">
+      <span class="label-text font-semibold">Description</span>
+      <span class="label-text-alt">Highlight benefits, specs, or condition.</span>
+    </label>
+    <%= form.text_area :description, rows: 6, class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div class="form-control">
+    <label class="label" for="ad_price">
+      <span class="label-text font-semibold">Price (USD)</span>
+    </label>
+    <%= form.number_field :price, step: 0.01, min: 0, class: "input input-bordered w-full max-w-sm" %>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-end gap-3">
+    <%= link_to "Cancel", ad.persisted? ? ad : ads_path, class: "btn btn-ghost" %>
+    <%= form.submit ad.persisted? ? "Update Ad" : "Publish Ad", class: "btn btn-primary" %>
+  </div>
+<% end %>

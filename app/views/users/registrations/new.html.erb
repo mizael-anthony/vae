@@ -1,0 +1,54 @@
+<section class="min-h-[60vh] flex items-center justify-center">
+  <div class="card bg-base-100 shadow-2xl w-full max-w-lg border border-base-200">
+    <div class="card-body space-y-6">
+      <div class="space-y-2 text-center">
+        <h1 class="text-3xl font-display">Create your account</h1>
+        <p class="text-base text-base-content/70">Access saved ads, publish listings, and manage inbox alerts.</p>
+      </div>
+
+      <%= form_with model: @user, url: users_registrations_path, class: "space-y-5" do |form| %>
+        <% if @user.errors.any? %>
+          <div class="alert alert-error shadow-lg">
+            <div>
+              <span class="font-semibold"><%= pluralize(@user.errors.count, "error") %> prevented this account from being saved:</span>
+              <ul class="list-disc list-inside text-sm">
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="form-control">
+          <label class="label" for="user_email">
+            <span class="label-text font-semibold">Email</span>
+          </label>
+          <%= form.email_field :email, autofocus: true, required: true, class: "input input-bordered w-full" %>
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="user_password">
+            <span class="label-text font-semibold">Password</span>
+            <span class="label-text-alt">Minimum 8 characters</span>
+          </label>
+          <%= form.password_field :password, required: true, class: "input input-bordered w-full" %>
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="user_password_confirmation">
+            <span class="label-text font-semibold">Confirm password</span>
+          </label>
+          <%= form.password_field :password_confirmation, required: true, class: "input input-bordered w-full" %>
+        </div>
+
+        <%= form.submit "Sign up", class: "btn btn-primary w-full" %>
+      <% end %>
+
+      <p class="text-center text-sm text-base-content/70">
+        Already have an account?
+        <%= link_to "Log in", new_session_path, class: "link link-hover text-primary" %>
+      </p>
+    </div>
+  </div>
+</section>

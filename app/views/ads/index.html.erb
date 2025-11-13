@@ -1,0 +1,79 @@
+<section class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+  <div>
+    <h1 class="page-heading">Discover fresh listings</h1>
+    <p class="page-subheading">Browse community offers, then publish your own when inspiration strikes.</p>
+  </div>
+  <div class="flex flex-wrap gap-3">
+    <% if logged_in? %>
+      <%= link_to "Create new ad", new_ad_path, class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "Sign in to publish", new_session_path, class: "btn btn-primary btn-outline" %>
+      <%= link_to "Join the community", new_users_registration_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</section>
+
+<% if @ads.any? %>
+  <div class="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+    <% @ads.each do |ad| %>
+      <article class="card bg-base-100 shadow-xl border border-base-200" id="ad-<%= ad.id %>">
+        <figure class="relative h-48 w-full overflow-hidden rounded-t-2xl">
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 opacity-70"></div>
+          <div class="relative z-10 flex h-full w-full items-center justify-center text-white text-3xl font-display tracking-wide">
+            <%= ad.title.first(2).to_s.upcase %>
+          </div>
+        </figure>
+        <div class="card-body">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h2 class="card-title leading-tight"><%= ad.title %></h2>
+              <p class="text-sm text-base-content/70">Updated <%= time_ago_in_words(ad.updated_at) %> ago</p>
+            </div>
+            <span class="badge badge-primary badge-lg"> <%= number_to_currency(ad.price) %> </span>
+          </div>
+          <p class="text-sm text-base-content/90">
+            <%= truncate(ad.description.to_s.presence || "No description provided yet.", length: 140) %>
+          </p>
+          <div class="mt-4 flex items-center gap-3">
+            <div class="avatar">
+              <div class="w-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-semibold">
+                <%= ad.user.email.first(2).upcase %>
+              </div>
+            </div>
+            <div>
+              <p class="font-semibold"><%= ad.user.email %></p>
+              <p class="text-xs text-base-content/70">Owner</p>
+            </div>
+          </div>
+          <div class="card-actions mt-6 items-center justify-between">
+            <%= link_to "View details", ad, class: "btn btn-ghost btn-sm" %>
+            <% if logged_in? && ad.user == current_user %>
+              <div class="flex gap-2">
+                <%= link_to "Edit", edit_ad_path(ad), class: "btn btn-outline btn-sm" %>
+                <%= button_to "Delete", ad, method: :delete,
+                      class: "btn btn-error btn-sm",
+                      data: { turbo_confirm: "Delete this ad?" },
+                      form: { class: "inline" } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </article>
+    <% end %>
+  </div>
+<% else %>
+  <div class="card card-side mt-10 bg-base-100 shadow-lg">
+    <div class="card-body">
+      <h2 class="card-title">No ads yet</h2>
+      <p>Be the first to share something awesome with the community.</p>
+      <% if logged_in? %>
+        <%= link_to "Publish an ad", new_ad_path, class: "btn btn-primary w-max" %>
+      <% else %>
+        <div class="flex gap-3">
+          <%= link_to "Create an account", new_users_registration_path, class: "btn btn-primary" %>
+          <%= link_to "Sign in", new_session_path, class: "btn btn-ghost" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
