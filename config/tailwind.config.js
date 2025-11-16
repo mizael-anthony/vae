@@ -1,5 +1,4 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
-const daisyuiThemes = require("daisyui/src/theming/themes")
 const daisyuiPlugin = require("daisyui")
 
 const daisyuiCompat = {
@@ -69,25 +68,36 @@ module.exports = {
   },
   plugins: [daisyuiCompat],
   daisyui: {
+    darkTheme: false,
     themes: [
       {
-        corporate: {
-          ...daisyuiThemes["corporate"],
-          primary: "#2563eb",
-          "primary-content": "#f8fafc",
-          secondary: "#f97316",
-          accent: "#22d3ee",
-          neutral: "#0f172a"
-        }
-      },
-      {
-        business: {
-          ...daisyuiThemes["business"],
-          primary: "#93c5fd",
-          "primary-content": "#0f172a",
-          secondary: "#f87171",
-          accent: "#c084fc",
-          neutral: "#111827"
+        mytheme: {
+          "color-scheme": "light",
+          "base-100": "oklch(98% 0.02 240)",
+          "base-200": "oklch(95% 0.03 240)",
+          "base-300": "oklch(92% 0.04 240)",
+          "base-content": "oklch(20% 0.05 240)",
+          "primary": "oklch(55% 0.3 240)",
+          "primary-content": "oklch(98% 0.01 240)",
+          "secondary": "oklch(70% 0.25 200)",
+          "secondary-content": "oklch(98% 0.01 200)",
+          "accent": "oklch(65% 0.25 160)",
+          "accent-content": "oklch(98% 0.01 160)",
+          "neutral": "oklch(50% 0.05 240)",
+          "neutral-content": "oklch(98% 0.01 240)",
+          "info": "oklch(70% 0.2 220)",
+          "info-content": "oklch(98% 0.01 220)",
+          "success": "oklch(65% 0.25 140)",
+          "success-content": "oklch(98% 0.01 140)",
+          "warning": "oklch(80% 0.25 80)",
+          "warning-content": "oklch(20% 0.05 80)",
+          "error": "oklch(65% 0.3 30)",
+          "error-content": "oklch(98% 0.01 30)",
+          "--rounded-box": "0.5rem",
+          "--rounded-btn": "1rem",
+          "--rounded-badge": "0.25rem",
+          "--tab-radius": "0.5rem",
+          "--border-btn": "1px"
         }
       }
     ]

@@ -1,39 +1,13 @@
 @import "tailwindcss";
-
-@theme {
-  /* Custom fonts */
-  --font-sans: Inter, Poppins, ui-sans-serif, system-ui, sans-serif;
-  --font-display: Poppins, ui-sans-serif, system-ui, sans-serif;
-
-  /* Brand colors */
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
-  --color-brand-950: #172554;
-
-  /* Primary color palette (blue) */
-  --color-primary: #2563eb;
-  --color-primary-content: #f8fafc;
-  --color-secondary: #f97316;
-  --color-accent: #22d3ee;
-  --color-neutral: #0f172a;
-
-  /* Base colors for light theme */
-  --color-base-100: #ffffff;
-  --color-base-200: #f1f5f9;
-  --color-base-300: #e2e8f0;
-  --color-base-content: #1e293b;
-
-  /* State colors */
-  --color-info: #0ea5e9;
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
+@layer base {
+  :root {
+    --radius-selector: 1rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+  }
 }
